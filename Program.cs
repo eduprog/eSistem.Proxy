@@ -1,7 +1,14 @@
+using eSistem.Proxy.RouteValidatoreSistem;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddReverseProxy()
     .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 builder.Services.AddLettuceEncrypt();
+
+
+// Adiciona RouteSettingService ao DI para ser injetado onde necessário
+builder.Services.AddSingleton<RouteSettingService>();
+
 var app = builder.Build();
 //  app.Use(async (context, next) =>
 //  {
@@ -28,4 +35,18 @@ var app = builder.Build();
 
 
 app.MapReverseProxy();
+
+
+
+// Obtém o serviço e imprime as rotas carregadas
+var routeService = app.Services.GetRequiredService<RouteSettingService>();
+
+foreach (var module in routeService.RouteEndpointSettings.RouteEndpointeSistem)
+{
+    Console.WriteLine($"Módulo: {module.ModuleEsistem.AppModuleId} - {module.ModuleEsistem.Description}");
+    foreach (var route in module.AppRouteModulesEsistem)
+    {
+        Console.WriteLine($"  Rota: {route.Path}");
+    }
+}
 app.Run();
