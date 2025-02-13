@@ -41,10 +41,13 @@ app.MapReverseProxy();
 // Obtém o serviço e imprime as rotas carregadas
 var routeService = app.Services.GetRequiredService<RouteSettingService>();
 
-foreach (var module in routeService.RouteSettingsEsistem.Modules)
+foreach (AppModuleRoute module in routeService.RouteModules.Modules)
 {
-    Console.WriteLine($"Módulo: {module.ModuleEsistem.AppModuleId} - {module.ModuleEsistem.Description}");
-    foreach (var route in module.AppRouteModulesEsistem)
+
+    Console.WriteLine($"Módulo: {module.Module.Name} - {module.Module.Description}");
+    
+    
+    foreach (RouteEsistem route in module.Route)
     {
         Console.WriteLine($"  Rota: {route.Path}");
     }
