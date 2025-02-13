@@ -2,16 +2,14 @@
 
 internal class RouteSettingService
 {
-    public RouteEndpointSettings RouteEndpointSettings { get; } = new();
+    public RouteSettingsEsistem RouteSettingsEsistem { get; }
 
     public RouteSettingService(IConfiguration configuration)
     {
-        // Carrega as configurações do JSON
-        var modules = configuration.GetSection("RouteSettings:Modules").Get<List<RouteModuleModelEsistem>>();
+        // Carrega as configurações do JSOn
+        RouteSettingsEsistem = configuration.GetSection("RouteSettingsEsistem").Get<RouteSettingsEsistem>()
+                               ?? new RouteSettingsEsistem();
 
-        if (modules != null)
-        {
-            RouteEndpointSettings.RouteEndpointeSistem.AddRange(modules);
-        }
+        
     }
 }

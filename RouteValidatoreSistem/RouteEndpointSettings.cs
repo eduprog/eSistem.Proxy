@@ -26,7 +26,7 @@
 //            }
 
 //        };
-//        var configModuloCadastro = new RouteModuleModelEsistem(moduloCadastro, rotasCadastro);
+//        var configModuloCadastro = new RouteSettingsEsistem(moduloCadastro, rotasCadastro);
 
 //        //Modulo Produtos
 //        var moduloCategoriasPessoas = new AppModuleEsistem
@@ -48,7 +48,7 @@
 //            }
 //        };
 
-//        var configCategoriasPessoas = new RouteModuleModelEsistem(moduloCategoriasPessoas, rotasCategoriasPessoas);
+//        var configCategoriasPessoas = new RouteSettingsEsistem(moduloCategoriasPessoas, rotasCategoriasPessoas);
 
 
 
@@ -61,14 +61,14 @@
 //    }
 //}
 
-internal class RouteEndpointSettings()
-{
-    public List<RouteModuleModelEsistem> RouteEndpointeSistem { get; set; } = [];
+//internal class RouteEndpointSettings()
+//{
+//    public List<RouteSettingsEsistem> RouteEndpointeSistem { get; set; } = [];
 
-    //public RouteEndpointSettings AddModules(RouteModuleModelEsistem routeModules)
-    //{
-    //    RouteEndpointeSistem.Add(routeModules);
+//    //public RouteEndpointSettings AddModules(RouteSettingsEsistem routeModules)
+//    //{
+//    //    RouteEndpointeSistem.Add(routeModules);
 
-    //    return this;
-    //}
-}
+//    //    return this;
+//    //}
+//}
