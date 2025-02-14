@@ -1,10 +1,10 @@
 ﻿namespace eSistem.Proxy.RouteValidatoreSistem;
 
-internal class RouteSettingService
+public class AppRoutesModulesService
 {
-    public RouteSettingService(IConfiguration configuration)
+    public AppRoutesModulesService(IConfiguration configuration)
     {
-        RouteModules = configuration.GetSection("RouteModules")
+        AppModulesRoutes = configuration.GetSection("RouteModules")
                                 .Get<RouteModules>()
                             ?? new RouteModules();
         CleanRouteAndNameEmpty();
@@ -15,7 +15,7 @@ internal class RouteSettingService
         // Criar uma lista para armazenar os módulos que precisam ser removidos
         var modulesToRemove = new List<AppModuleRoute>();
 
-        foreach (var module in RouteModules.Modules)
+        foreach (var module in AppModulesRoutes.Modules)
         {
 
             // Remover rotas inválidas (Path vazio)
@@ -33,9 +33,17 @@ internal class RouteSettingService
         // Remover os módulos marcados de uma vez
         foreach (var module in modulesToRemove)
         {
-            RouteModules.Modules.Remove(module);
+            AppModulesRoutes.Modules.Remove(module);
         }
     }
 
-    public RouteModules RouteModules { get; }
-}
+    public RouteModules AppModulesRoutes { get; }
+
+    public Dictionary<string, List<string>> GroupedModulesRoutes =>
+        AppModulesRoutes.Modules
+            .Where(module => !string.IsNullOrWhiteSpace(module.Module.Name)) // Evita nomes vazios
+            .ToDictionary(
+                module => module.Module.Name, // Chave: Nome do Módulo
+                module => module.Route.Select(route => route.Path).ToList() // Valor: Lista de Rotas
+            );
+    }
